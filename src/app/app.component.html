@@ -15,10 +15,10 @@
   <div class="position-absolute container" style="left: 0; z-index:10">
   <div class="row justify-content-center">
     <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5">
-      <div class="list-group">
+      <div class="list-group" *ngIf="query"> <!-- Only show list if something is typed in input -->
         <a href="#" class="list-group-item list-group-item-action flex-column align-items-start"
           *ngFor="let artist of (artists | searchArtists: query)"
-          (click)="showArtist(artist)"
+          (click)="showArtist(artist); query=''"
           [style.backgroundColor]="artist.highlight ? '#eee' : '#fff'"> <!-- | pipe to modify the query based on searchArtists from search-artists.pipe.ts. ? if true : else -->
           <app-artist-items [artist]="artist"></app-artist-items> <!-- property [artist] from artist-item and "artist" from let statement above -->
           </a>
@@ -26,4 +26,5 @@
     </div>
   </div>
   </div>
+  <app-artist-details *ngIf="currentArtist" [artist]="currentArtist"></app-artist-details>
 </div>
